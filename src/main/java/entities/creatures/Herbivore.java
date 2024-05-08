@@ -15,15 +15,9 @@ public class Herbivore extends Creature {
         super(worldMap, cell, hitPointsRange, amountOfFoodAfterDeath);
     }
 
-    @Override
-    public void makeMove(WorldMap worldMap) {
-        super.makeMove(worldMap);
-
-        if (this.currentTarget == null) {
-            return;
-        }
-
-        this.eat();
+    protected void cameUnderAttack(int damage) {
+        this.isUnderAttack = true;
+        setCurrentHitPoints(this.getCurrentHitPoints() - damage);
     }
 
     @Override

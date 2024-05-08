@@ -1,7 +1,7 @@
 package actions;
 
 import entities.Food;
-import entities.creatures.Creature;
+
 import entities.creatures.Herbivore;
 import worldMap.WorldMap;
 
@@ -18,8 +18,5 @@ public class PreparationAction extends Action {
         this.worldMap
                 .getEntitiesOfType(Herbivore.class)
                 .forEach((key, value) -> value.isUnderAttack = false);
-        this.worldMap
-                .getEntitiesOfType(Creature.class)
-                .forEach((key, value) -> value.currentTarget = null);
     }
 }

@@ -1,6 +1,7 @@
 package entities.creatures;
 
 import entities.Entity;
+import entities.Food;
 import entities.Range;
 import entities.inanimate.Grass;
 import worldMap.Cell;
@@ -28,24 +29,17 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void makeMove(WorldMap worldMap) {
-        super.makeMove(worldMap);
-        if (this.currentTarget == null) {
-            return;
-        }
-        Herbivore herbivore = (Herbivore) this.currentTarget;
+    protected void interactWith(Food target) {
+        Herbivore herbivore = (Herbivore) target;
         if (herbivore.isAlive()) {
             this.attack(herbivore);
         } else {
-            this.eat();
+            super.interactWith(target);
         }
     }
 
     private void attack(Herbivore target) {
-        target.isUnderAttack = true;
-        int currentTargetHitPoints = target.getCurrentHitPoints();
-        final int damage = this.damageRange.getRandomNumber();
-        currentTargetHitPoints -= damage;
-        target.setCurrentHitPoints(currentTargetHitPoints);
+        int damage = this.damageRange.getRandomNumber();
+        target.cameUnderAttack(damage);
     }
 }
