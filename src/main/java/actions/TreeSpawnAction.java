@@ -11,7 +11,7 @@ public class TreeSpawnAction extends SpawnAction<Tree> {
     }
 
     @Override
-    protected Tree spawnEntity(Cell cell) {
+    protected Tree spawnEntity(WorldMap worldMap, Cell cell) {
         return new Tree(cell);
     }
 }

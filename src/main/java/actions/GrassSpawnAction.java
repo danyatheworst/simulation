@@ -10,8 +10,8 @@ public class GrassSpawnAction extends SpawnAction<Grass> {
     }
 
     @Override
-    protected Grass spawnEntity(Cell cell) {
-        return new Grass(cell, 2);
+    protected Grass spawnEntity(WorldMap worldMap, Cell cell) {
+        return new Grass(worldMap, cell, 2);
     }
 
 }

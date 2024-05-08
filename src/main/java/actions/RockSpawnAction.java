@@ -10,7 +10,7 @@ public class RockSpawnAction extends SpawnAction<Rock> {
     }
 
     @Override
-    protected Rock spawnEntity(Cell cell) {
+    protected Rock spawnEntity(WorldMap worldMap, Cell cell) {
         return new Rock(cell);
     }
 }

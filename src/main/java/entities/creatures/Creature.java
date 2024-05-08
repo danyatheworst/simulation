@@ -19,8 +19,8 @@ abstract public class Creature extends Food {
     private int currentHitPoints;
     private final int maxHitPoints;
     public Food currentTarget;
-    public Creature(Cell cell, Range hpRange, int amountOfFoodAfterFood) {
-        super(cell, amountOfFoodAfterFood);
+    public Creature(WorldMap worldMap, Cell cell, Range hpRange, int amountOfFoodAfterFood) {
+        super(worldMap, cell, amountOfFoodAfterFood);
         this.maxHitPoints = hpRange.getRandomNumber();
         this.currentHitPoints = this.maxHitPoints;
         this.currentTarget = null;
@@ -74,16 +74,8 @@ abstract public class Creature extends Food {
         }
     }
 
-    protected void eat(WorldMap worldMap) {
-        int currentAmountOfFood = this.currentTarget.getAmount();
-        currentAmountOfFood -= 1;
-
-        if (currentAmountOfFood <= 0) {
-            worldMap.removeEntity(this.currentTarget.cell);
-            return;
-        }
-        this.currentTarget.isConsumed = true;
-        this.currentTarget.setAmount(currentAmountOfFood);
+    protected void eat() {
+        this.currentTarget.decreaseAmount();
 
         final int currentHitPoints = (int) (this.currentHitPoints + this.maxHitPoints * 0.35);
         this.setCurrentHitPoints(currentHitPoints);

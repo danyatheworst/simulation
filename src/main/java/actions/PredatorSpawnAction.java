@@ -12,8 +12,8 @@ public class PredatorSpawnAction extends SpawnAction<Predator> {
     }
 
     @Override
-    protected Predator spawnEntity(Cell cell) {
+    protected Predator spawnEntity(WorldMap worldMap, Cell cell) {
 
-        return new Predator(cell, new Range(30, 36), new Range(8, 17), 4);
+        return new Predator(worldMap, cell, new Range(30, 36), new Range(8, 17), 4);
     }
 }

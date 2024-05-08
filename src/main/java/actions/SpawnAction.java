@@ -28,11 +28,11 @@ public abstract class SpawnAction <T extends Entity> extends Action {
         int currentNumberOfEntites = 0;
         while (currentNumberOfEntites < numberOfEntitiesToSpawn) {
             Cell emptyCell = getRandomEmptyCell();
-            Entity newEntity = spawnEntity(emptyCell);
+            Entity newEntity = spawnEntity(worldMap, emptyCell);
             this.worldMap.addEntity(emptyCell, newEntity);
             currentNumberOfEntites += 1;
         }
     }
 
-    protected abstract T spawnEntity(Cell cell);
+    protected abstract T spawnEntity(WorldMap worldMap, Cell cell);
 }

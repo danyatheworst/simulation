@@ -13,7 +13,7 @@ public class HerbivoreSpawnAction extends SpawnAction<Herbivore> {
     }
 
     @Override
-    protected Herbivore spawnEntity(Cell cell) {
-        return new Herbivore(cell, new Range(35, 51), 3);
+    protected Herbivore spawnEntity(WorldMap worldMap, Cell cell) {
+        return new Herbivore(worldMap, cell, new Range(35, 51), 3);
     }
 }

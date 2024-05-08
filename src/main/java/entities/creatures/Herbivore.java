@@ -11,8 +11,8 @@ import java.util.HashSet;
 public class Herbivore extends Creature {
     public boolean isUnderAttack;
 
-    public Herbivore(Cell cell, Range hitPointsRange, int amountOfFoodAfterDeath) {
-        super(cell, hitPointsRange, amountOfFoodAfterDeath);
+    public Herbivore(WorldMap worldMap, Cell cell, Range hitPointsRange, int amountOfFoodAfterDeath) {
+        super(worldMap, cell, hitPointsRange, amountOfFoodAfterDeath);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Herbivore extends Creature {
             return;
         }
 
-        this.eat(worldMap);
+        this.eat();
     }
 
     @Override
