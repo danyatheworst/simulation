@@ -9,12 +9,12 @@ public class CellShift {
         this.y = y;
     }
 
-    public static CellShift[] shifts_4 = new CellShift[]{
+    public static CellShift[] oneStepShiftsToFourDirections = new CellShift[]{
             new CellShift(0, -1), new CellShift(1, 0),
             new CellShift(0, 1), new CellShift(-1, 0),
     };
 
-    public static CellShift[] shifts_8 = new CellShift[]{
+    public static CellShift[] oneStepShiftToEightDirections = new CellShift[]{
             new CellShift(0, -1), new CellShift(1, 0),
             new CellShift(0, 1), new CellShift(-1, 0),
             new CellShift(-1, -1), new CellShift(-1, 1),

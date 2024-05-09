@@ -14,9 +14,9 @@ public class PreparationAction extends Action {
     public void perform() {
         this.worldMap
                 .getEntitiesOfType(Food.class)
-                .forEach((key, value) -> value.isConsumed = false);
+                .forEach(f -> f.isConsumed = false);
         this.worldMap
                 .getEntitiesOfType(Herbivore.class)
-                .forEach((key, value) -> value.isUnderAttack = false);
+                .forEach(h -> h.isUnderAttack = false);
     }
 }

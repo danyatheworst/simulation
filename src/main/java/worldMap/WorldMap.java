@@ -4,6 +4,8 @@ import entities.Entity;
 import entities.creatures.Creature;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -39,29 +41,26 @@ public class WorldMap {
     public boolean isCellEmpty(Cell cell) {
         return !this.entities.containsKey(cell);
     }
+    public boolean isCellValid(Cell cell) {
+        int x = cell.x;
+        int y = cell.y;
+        boolean isXValid = x >= 0 && x < this.height;
+        boolean isYValid = y >= 0 && y < this.width;
+
+        return isXValid && isYValid;
+    }
 
     public int getNumberOfCells() {
         return this.width * this.height;
     }
 
-    public <T> HashMap<Cell, T> getEntitiesOfType(Class<T> type) {
+
+    public <T> List<T> getEntitiesOfType(Class<T> type) {
         return this.entities
-                .entrySet()
+                .values()
                 .stream()
-                .filter(e -> type.isInstance(e.getValue()))
-                .map(e -> (Entry<Cell, T>) e)
-                .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> b, HashMap::new));
-    };
-
-    public boolean doCreaturesExist() {
-        int numberOfLivingCreatures = 0;
-        HashMap<Cell, Creature> creatures = this.getEntitiesOfType(Creature.class);
-        for (Creature creature : creatures.values()) {
-            if (creature.isAlive()) {
-                numberOfLivingCreatures += 1;
-            }
-        }
-
-        return numberOfLivingCreatures > 0;
+                .filter(type::isInstance)
+                .map(entity -> (T) entity) // Приводим значение к типу T
+                .collect(Collectors.toList());
     }
 }

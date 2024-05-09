@@ -40,7 +40,7 @@ abstract public class Creature extends Food {
         }
 
         Cell currentCell = this.cell;
-        Cell targetCell = this.getTargetNear(worldMap);
+        Cell targetCell = this.getTargetNear();
         boolean isTargetNear = !targetCell.equals(currentCell);
         if (isTargetNear) {
             Food target = (Food) this.worldMap.getEntityAt(targetCell);
@@ -60,17 +60,15 @@ abstract public class Creature extends Food {
     }
 
     private void makeRandomStep() {
-        CellShift[] shifts = CellShift.shifts_4;
+        CellShift[] shifts = CellShift.oneStepShiftsToFourDirections;
         Utils.shuffleArray(shifts);
         Cell currentCell = this.cell;
 
         for (CellShift shift : shifts) {
-            if (currentCell.isShiftValid(shift, this.worldMap.width, this.worldMap.height)) {
-                Cell newCell = currentCell.shift(shift);
-                    if (this.worldMap.isCellEmpty(newCell)) {
-                        this.worldMap.moveEntity(currentCell, newCell);
-                        break;
-                }
+            Cell shiftedCell = cell.shift(shift);
+            if (this.worldMap.isCellValid(shiftedCell) && this.worldMap.isCellEmpty(shiftedCell)) {
+                this.worldMap.moveEntity(currentCell, shiftedCell);
+                break;
             }
         }
     }
@@ -89,19 +87,30 @@ abstract public class Creature extends Food {
         return obstacles;
     }
 
-    private Cell getTargetNear(WorldMap worldMap) {
-        CellShift[] shifts = CellShift.shifts_8;
+    private Cell getTargetNear() {
+        CellShift[] shifts = CellShift.oneStepShiftToEightDirections;
         Cell cell = this.cell;
 
+//        for (CellShift shift : shifts) {
+//            if (cell.isShiftValid(shift, this.worldMap.width, this.worldMap.height)) {
+//                Cell validCell = cell.shift(shift);
+//                if (!this.worldMap.isCellEmpty(validCell)) {
+//                    Entity entity = this.worldMap.getEntityAt(validCell);
+//                    boolean isTarget = entity.getClass() == this.getTarget();
+//                    if (isTarget) {
+//                        return validCell;
+//                    }
+//                }
+//            }
+//        }
+
         for (CellShift shift : shifts) {
-            if (cell.isShiftValid(shift, worldMap.width, worldMap.height)) {
-                Cell validCell = cell.shift(shift);
-                if (!worldMap.isCellEmpty(validCell)) {
-                    Entity entity = worldMap.getEntityAt(validCell);
-                    boolean isTarget = entity.getClass() == this.getTarget();
-                    if (isTarget) {
-                        return validCell;
-                    }
+            Cell shiftedCell = this.cell.shift(shift);
+            if (this.worldMap.isCellValid(shiftedCell) && !this.worldMap.isCellEmpty(shiftedCell)) {
+                Entity entity = this.worldMap.getEntityAt(shiftedCell);
+                boolean isTarget = entity.getClass() == this.getTarget();
+                if (isTarget) {
+                    return shiftedCell;
                 }
             }
         }

@@ -1,10 +1,13 @@
 import actions.Action;
 import actions.MoveCreatureAction;
 import actions.PreparationAction;
+import entities.creatures.Creature;
+import worldMap.Cell;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Simulation {
@@ -22,7 +25,7 @@ public class Simulation {
     }
 
     public void start() {
-        while (this.worldMap.doCreaturesExist() && !isFinished) {
+        while (this.doCreaturesExist() && !isFinished) {
             this.nextTurn();
         }
     }
@@ -48,5 +51,16 @@ public class Simulation {
     private void setTurnActions() {
         this.turnActions.add(new PreparationAction(this.worldMap));
         this.turnActions.add(new MoveCreatureAction(this.worldMap));
+    }
+
+    public boolean doCreaturesExist() {
+        List<Creature> creatures = this.worldMap.getEntitiesOfType(Creature.class);
+        for (Creature creature : creatures) {
+            if (creature.isAlive()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

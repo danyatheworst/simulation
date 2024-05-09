@@ -12,7 +12,7 @@ public class MoveCreatureAction extends Action {
     public void perform() {
         this.worldMap
                 .getEntitiesOfType(Creature.class)
-                .values().stream().filter(Creature::isAlive)
+                .stream().filter(Creature::isAlive)
                 .forEach(Creature::makeMove);
     }
 }

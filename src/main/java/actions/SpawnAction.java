@@ -4,6 +4,8 @@ import entities.Entity;
 import worldMap.Cell;
 import worldMap.WorldMap;
 
+import java.util.Random;
+
 public abstract class SpawnAction <T extends Entity> extends Action {
     protected final int percentageToSpawn;
     
@@ -14,7 +16,8 @@ public abstract class SpawnAction <T extends Entity> extends Action {
 
     protected Cell getRandomEmptyCell() {
         while (true) {
-            Cell randomCell = Cell.getRandomCell(this.worldMap.width, this.worldMap.height);
+            Random random = new Random();
+            Cell randomCell =  new Cell(random.nextInt(this.worldMap.width), random.nextInt(this.worldMap.height));
             if (this.worldMap.isCellEmpty(randomCell)) {
                 return randomCell;
             }

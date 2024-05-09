@@ -14,7 +14,7 @@ public class BFSPathFinder implements PathFinder {
 
     public BFSPathFinder(WorldMap worldMap) {
         this.worldMap = worldMap;
-        this.cellShifts = CellShift.shifts_4;
+        this.cellShifts = CellShift.oneStepShiftsToFourDirections;
     }
 
     public  <T> List<Cell> getPath(Cell startCell, Class<T> target, HashSet<Class<? extends Entity>> obstacles) {
@@ -36,17 +36,17 @@ public class BFSPathFinder implements PathFinder {
             }
 
             for (CellShift shift : cellShifts) {
-                final boolean isValid = lastCellInPath.isShiftValid(shift, worldMap.width, worldMap.height);
-                Cell newCell = lastCellInPath.shift(shift);
-                Entity entity = worldMap.getEntityAt(newCell);
-                final boolean isEmpty = worldMap.isCellEmpty(newCell);
-                final boolean isObstacle = !isEmpty && obstacles.contains(entity.getClass());
-                final boolean isSearched = searched.contains(newCell);
+                Cell shiftedCell = lastCellInPath.shift(shift);
+                boolean isValid = worldMap.isCellValid(shiftedCell);
+                Entity entity = worldMap.getEntityAt(shiftedCell);
+                boolean isEmpty = worldMap.isCellEmpty(shiftedCell);
+                boolean isObstacle = !isEmpty && obstacles.contains(entity.getClass());
+                boolean isSearched = searched.contains(shiftedCell);
 
                 if (isValid && !isObstacle && !isSearched) {
-                    searched.add(newCell);
+                    searched.add(shiftedCell);
                     List<Cell> newPath = new ArrayList<>(currentPath);
-                    newPath.add(newCell);
+                    newPath.add(shiftedCell);
                     paths.add(newPath);
                 }
             }
