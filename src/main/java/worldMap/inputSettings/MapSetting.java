@@ -1,4 +1,4 @@
-package worldMap;
+package worldMap.inputSettings;
 
 import entities.creatures.Herbivore;
 import entities.creatures.Predator;
@@ -17,7 +17,7 @@ public class MapSetting {
         this.setInitialEntitiesPercentage();
     }
 
-    Map<String, Integer> entitiesPercentage = new HashMap<>();
+    public Map<String, Integer> entitiesPercentage = new HashMap<>();
 
     private void setInitialEntitiesPercentage() {
         entitiesPercentage.put(Herbivore.class.getName(), 0);

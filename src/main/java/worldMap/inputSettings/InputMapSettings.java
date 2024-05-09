@@ -1,4 +1,4 @@
-package worldMap;
+package worldMap.inputSettings;
 
 import entities.creatures.Herbivore;
 import entities.creatures.Predator;

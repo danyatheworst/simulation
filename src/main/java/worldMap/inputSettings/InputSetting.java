@@ -1,4 +1,4 @@
-package worldMap;
+package worldMap.inputSettings;
 
 public class InputSetting {
     public final String message;

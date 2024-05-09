@@ -1,4 +1,6 @@
 import worldMap.*;
+import worldMap.inputSettings.InputMapSettings;
+import worldMap.inputSettings.MapSetting;
 
 public class Main {
     public static void main(String[] args) {

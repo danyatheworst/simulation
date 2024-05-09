@@ -1,4 +1,4 @@
-package worldMap;
+package worldMap.inputSettings;
 
 public class InputPercentageSetting extends InputSetting {
     public final String entityName;

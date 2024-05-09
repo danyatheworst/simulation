@@ -6,6 +6,7 @@ import entities.creatures.Predator;
 import entities.inanimate.Grass;
 import entities.inanimate.Rock;
 import entities.inanimate.Tree;
+import worldMap.inputSettings.MapSetting;
 
 import java.util.ArrayList;
 import java.util.List;
