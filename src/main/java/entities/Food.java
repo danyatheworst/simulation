@@ -1,13 +1,14 @@
 package entities;
 
 
+import worldMap.InteractionCallback;
 import worldMap.Cell;
 import worldMap.WorldMap;
 
 abstract public class Food extends Entity {
     protected WorldMap worldMap;
     protected int amount;
-    public boolean isConsumed;
+    protected InteractionCallback interactionCallback;
 
     protected Food(WorldMap worldMap, Cell cell, int amount) {
         super(cell);
@@ -15,7 +16,12 @@ abstract public class Food extends Entity {
         this.amount = amount;
     }
 
+    public void setTest(InteractionCallback interactionCallback) {
+        this.interactionCallback = interactionCallback;
+    }
+
     public void decreaseAmount() {
+        this.interactionCallback.onInteract(this);
         int currentAmountOfFood = this.getAmount();
         currentAmountOfFood -= 1;
 
@@ -23,7 +29,6 @@ abstract public class Food extends Entity {
             worldMap.removeEntity(this.cell);
             return;
         }
-        this.isConsumed = true;
         this.setAmount(currentAmountOfFood);
     }
 

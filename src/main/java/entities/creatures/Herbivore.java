@@ -9,14 +9,12 @@ import worldMap.WorldMap;
 import java.util.HashSet;
 
 public class Herbivore extends Creature {
-    public boolean isUnderAttack;
-
     public Herbivore(WorldMap worldMap, Cell cell, Range hitPointsRange, int amountOfFoodAfterDeath) {
         super(worldMap, cell, hitPointsRange, amountOfFoodAfterDeath);
     }
 
     protected void cameUnderAttack(int damage) {
-        this.isUnderAttack = true;
+        this.interactionCallback.onInteract(this);
         setCurrentHitPoints(this.getCurrentHitPoints() - damage);
     }
 

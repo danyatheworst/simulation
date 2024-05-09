@@ -11,7 +11,13 @@ import java.util.HashSet;
 
 public class Predator extends Creature {
     private final Range damageRange;
-    public Predator(WorldMap worldMap, Cell cell, Range hitPointsRange, Range damageRange, int amountOfFoodAfterDeath) {
+    public Predator(
+            WorldMap worldMap,
+            Cell cell,
+            Range hitPointsRange,
+            Range damageRange,
+            int amountOfFoodAfterDeath
+    ) {
         super(worldMap, cell, hitPointsRange, amountOfFoodAfterDeath);
         this.damageRange = damageRange;
     }

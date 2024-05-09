@@ -4,6 +4,7 @@ import entities.creatures.Predator;
 import worldMap.Cell;
 import worldMap.WorldMap;
 import entities.Range;
+import worldMap.WorldMapRenderer;
 
 
 public class PredatorSpawnAction extends SpawnAction<Predator> {

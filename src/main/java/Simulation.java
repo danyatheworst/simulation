@@ -1,13 +1,11 @@
 import actions.Action;
 import actions.MoveCreatureAction;
-import actions.PreparationAction;
+import entities.Food;
 import entities.creatures.Creature;
-import worldMap.Cell;
 import worldMap.WorldMap;
 import worldMap.WorldMapRenderer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Simulation {
@@ -21,6 +19,7 @@ public class Simulation {
     public Simulation(WorldMap worldMap, WorldMapRenderer worldMapRenderer) {
         this.worldMap = worldMap;
         this.worldMapRenderer = worldMapRenderer;
+        this.worldMap.getEntitiesOfType(Food.class).forEach(f -> f.setTest(this.worldMapRenderer::addToInteractedEntities));
         this.setTurnActions();
     }
 
@@ -49,7 +48,6 @@ public class Simulation {
     }
 
     private void setTurnActions() {
-        this.turnActions.add(new PreparationAction(this.worldMap));
         this.turnActions.add(new MoveCreatureAction(this.worldMap));
     }
 

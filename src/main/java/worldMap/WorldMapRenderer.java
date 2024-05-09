@@ -1,9 +1,13 @@
 package worldMap;
 
 import entities.Entity;
+import entities.Food;
 import entities.creatures.Herbivore;
 import entities.creatures.Predator;
 import entities.inanimate.Grass;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class WorldMapRenderer {
     private static final String CLEAR_CONSOLE = "\033[H\033[J";
@@ -20,6 +24,7 @@ public class WorldMapRenderer {
     private static final String GROUND = "\uD83D\uDFEB";
 
     private final WorldMap worldMap;
+    private final Set<Food> interactedEntities = new HashSet<>();
 
     public WorldMapRenderer(WorldMap worldMap) {
         this.worldMap = worldMap;
@@ -46,6 +51,8 @@ public class WorldMapRenderer {
         System.out.println("p — pause/resume simulation");
         System.out.println("f — finish simulation");
 
+        interactedEntities.clear();
+
         try {
             Thread.sleep(1100);
         } catch (InterruptedException e) {
@@ -59,13 +66,14 @@ public class WorldMapRenderer {
             case "Herbivore": {
                 Herbivore herbivore = (Herbivore) entity;
                 if (!herbivore.isAlive()) {
-                    if (herbivore.isConsumed) {
+                    if (interactedEntities.contains(herbivore)) {
                         return ANSI_YELLOW + DEAD_HERBIVORE;
                     }
+
                     return DEAD_HERBIVORE;
                 }
-
-                if (herbivore.isUnderAttack) {
+                //herbivore is get attacked
+                if (interactedEntities.contains(herbivore)) {
                     return ANSI_RED + HERBIVORE;
                 }
                 return HERBIVORE;
@@ -80,7 +88,7 @@ public class WorldMapRenderer {
             case "Grass": {
                 assert entity instanceof Grass;
                 Grass grass = (Grass) entity;
-                if (grass.isConsumed) {
+                if (interactedEntities.contains(grass)) {
                     return ANSI_YELLOW + GRASS;
                 }
                 return GRASS;
@@ -89,6 +97,10 @@ public class WorldMapRenderer {
             case "Rock": return ROCK;
         };
         return GROUND;
+    }
+
+    public void addToInteractedEntities(Food food) {
+        this.interactedEntities.add(food);
     }
 }
 

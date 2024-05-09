@@ -15,10 +15,12 @@ import worldMap.WorldMap;
 import java.util.*;
 
 abstract public class Creature extends Food {
+
     private final int SPEED = 1;
     private int currentHitPoints;
     private final int maxHitPoints;
     private final WorldMap worldMap;
+
     public Creature(WorldMap worldMap, Cell cell, Range hpRange, int amountOfFoodAfterFood) {
         super(worldMap, cell, amountOfFoodAfterFood);
         this.maxHitPoints = hpRange.getRandomNumber();
@@ -90,19 +92,6 @@ abstract public class Creature extends Food {
     private Cell getTargetNear() {
         CellShift[] shifts = CellShift.oneStepShiftToEightDirections;
         Cell cell = this.cell;
-
-//        for (CellShift shift : shifts) {
-//            if (cell.isShiftValid(shift, this.worldMap.width, this.worldMap.height)) {
-//                Cell validCell = cell.shift(shift);
-//                if (!this.worldMap.isCellEmpty(validCell)) {
-//                    Entity entity = this.worldMap.getEntityAt(validCell);
-//                    boolean isTarget = entity.getClass() == this.getTarget();
-//                    if (isTarget) {
-//                        return validCell;
-//                    }
-//                }
-//            }
-//        }
 
         for (CellShift shift : shifts) {
             Cell shiftedCell = this.cell.shift(shift);
